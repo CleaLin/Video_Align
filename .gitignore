@@ -129,6 +129,4 @@ dmypy.json
 .pyre/
 
 # dataset and result
-/result
-/data
-/log
+
