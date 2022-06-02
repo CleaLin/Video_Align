@@ -65,9 +65,12 @@ def get_start(query=0, candi=1):
   
   start_frame = min_dists.index(min(min_dists))
   print('[CLEA] START FRAME = ', start_frame)
+  # Plot min_dist calculation
+  if not os.path.exists('./result'):
+    os.makedirs('./result')
   x = np.arange(0, len(embs[query])-len(embs[candi]))
   plt.plot(x, min_dists, '-ro', markevery=[start_frame])
-  plt.savefig('min_dists')
+  plt.savefig('./result/min_dists')
 
   # Draw skeleton on raw videos
   videos_drawn = tccskeleton.vis_skeleton(videos_raw, skeletons)
@@ -77,7 +80,6 @@ def get_start(query=0, candi=1):
 # Create video
 def gen_result(start_frame, frames, query=0, candi=1):
   # Draw skeleton on query video
-
   now_time = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
   OUTPUT_PATH = './result/align_{}.mp4'.format(now_time)
   
@@ -109,7 +111,7 @@ def gen_result(start_frame, frames, query=0, candi=1):
 
   def update(i):
     ims[query].set_data(unnorm(frames[query][i]))
-    ax[query].set_title('FRAME {}'.format(i), fontsize = 14)
+    #ax[query].set_title('FRAME {}'.format(i), fontsize = 14)
     if i >= start_frame and i < (start_frame+len(frames[candi])):
       ims[candi].set_data(unnorm(frames[candi][i-start_frame]))
     elif i < start_frame:

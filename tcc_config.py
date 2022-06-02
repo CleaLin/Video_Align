@@ -4,13 +4,13 @@ import os
 # Get the configuration dictionary whose keys can be accessed with dot.
 CONFIG = edict()
 
-CONFIG.LOGDIR = '/home/clealin/tcc/tcc_colab/log/'
+CONFIG.LOGDIR = './log/'
 #CONFIG.PATH_TO_RAW_VIDEOS = '/home/clealin/tcc/tcc_colab/data/Penn_Action/datasets_raw/'
 #CONFIG.PATH_TO_RAW_VIDEOS = '/home/clealin/tcc/tcc_colab/data/Penn_Action/'
-CONFIG.PATH_TO_RAW_VIDEOS = '/home/clealin/tcc/tcc_colab/data/Skating/'
+CONFIG.PATH_TO_RAW_VIDEOS = './data/'
 
 CONFIG.BATCH_SIZE =  2#@param {type:"integer"}
-CONFIG.NUM_STEPS = 40 #@param {type:"integer"}
+CONFIG.NUM_STEPS = 130 #@param {type:"integer"}
 CONFIG.NUM_CONTEXT_STEPS =  2#@param {type:"integer"}
 CONFIG.CONTEXT_STRIDE =  15#@param {type:"integer"}
 
@@ -33,9 +33,9 @@ CONFIG.LEARNING_RATE = 1e-4 #@param {type:"number"}
 CONFIG.DEBUG = False #@param ["False", "True"] {type:"raw"}
 
 # Training parameter
-CONFIG.MAX_NUM_TRAINING_STEPS = 1000
+CONFIG.MAX_NUM_TRAINING_STEPS = 2000
 CONFIG.SAVE_CKPT_STEPS = 200
-CONFIG.SHOW_LOSS_STEPS = 1
+CONFIG.SHOW_LOSS_STEPS = 50
 
 # Extract embedding parameter
 CONFIG.PATH_TO_EMBS = os.path.join(CONFIG.LOGDIR, '%s_embeddings.npy')

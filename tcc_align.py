@@ -2,6 +2,7 @@ import tensorflow as tf
 import numpy as np
 from tcc_config import CONFIG
 import datetime
+import os
 
 from absl import app
 from absl import flags
@@ -25,7 +26,7 @@ def align():
     if 'pouring' in FLAGS.dataset:
       videos, video_seq_lens = tccdata.load_videos(CONFIG.PATH_TO_RAW_VIDEOS, FLAGS.dataset, FLAGS.mode)
     elif 'skate' in FLAGS.dataset:
-      videos, video_seq_lens, videos_raw = tccdata.load_skate_data(CONFIG.PATH_TO_RAW_VIDEOS, FLAGS.dataset, FLAGS.mode)
+      _, _, videos_raw, _ = tccdata.load_skate_data(CONFIG.PATH_TO_RAW_VIDEOS, FLAGS.dataset, FLAGS.mode)
     else:
       videos, video_seq_lens = tccdata.load_penn_data(CONFIG.PATH_TO_RAW_VIDEOS, FLAGS.dataset, FLAGS.mode)
     print('------------------------------------------------------')
@@ -43,10 +44,12 @@ def align():
       align_videos.append(videos_raw[i])
 
     # Generate aligned video
+    if not os.path.exists('./result'):
+      os.makedirs('./result')
     now_time = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
-    print("Generating aligned video at /home/clealin/tcc/tcc_colab/result/output_{}.mp4".format(now_time))
-    VIDEO_OUTPUT_PATH = '/home/clealin/tcc/tcc_colab/result/output_{}.mp4'.format(now_time)
-    tSNE_OUTPUT_PATH = '/home/clealin/tcc/tcc_colab/result/output_{}.jpg'.format(now_time)
+    print("Generating aligned video at ./result/output_{}.mp4".format(now_time))
+    VIDEO_OUTPUT_PATH = './result/output_{}.mp4'.format(now_time)
+    tSNE_OUTPUT_PATH = './result/output_{}.jpg'.format(now_time)
     NUM_VIDEOS = 4
     GRID_MODE = True
     USE_DTW = True
